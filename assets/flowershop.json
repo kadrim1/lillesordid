@@ -1,0 +1,248 @@
+{
+    "swagger": "2.0",
+    "info": {
+        "title": "Plant shop",
+        "version": "1.0.0"
+    },
+    "host": "localhost",
+    "schemes": [
+        "https"
+    ],
+    "basePath": "/v1",
+    "produces": [
+        "application/json"
+    ],
+    "paths": {
+        "/products/get_all": {
+            "get": {
+                "summary": "Product Types",
+                "description": "The Products endpoint returns information about the Plantshop products\noffered at a given location. The response includes details about each product, and lists the products in the proper display order.\n",
+                "tags": [
+                    "products/get all"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "An array of products",
+                        "schema": {
+                            "type": "array",
+                            "items": {
+                                "$ref": "#/definitions/Product"
+                            }
+                        }
+                    },
+                    "default": {
+                        "description": "Unexpected error",
+                        "schema": {
+                            "$ref": "#/definitions/Error"
+                        }
+                    }
+                }
+            }
+        },
+        "/products/select_one": {
+            "get": {
+                "summary": "Get one product",
+                "description": "The Products endpoint returns information about one item the Plantshop.\n",
+                "parameters": [
+                    {
+                        "name": "name",
+                        "in": "query",
+                        "description": "Name of the new item.",
+                        "required": true,
+                        "type": "string"
+                    }
+                ],
+                "tags": [
+                    "products/get one"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "An array of products",
+                        "schema": {
+                            "$ref": "#/definitions/Product2"
+                        }
+                    },
+                    "default": {
+                        "description": "Unexpected error",
+                        "schema": {
+                            "$ref": "#/definitions/Error"
+                        }
+                    }
+                }
+            }
+        },
+        "/products/create": {
+            "post": {
+                "summary": "Create new plant to database",
+                "description": "The create endpoint inserts new item into database.\n",
+                "parameters": [
+                    {
+                        "name": "name",
+                        "in": "query",
+                        "description": "Name of the new item.",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "name": "amount",
+                        "in": "query",
+                        "description": "Amount of the new items.",
+                        "required": true,
+                        "type": "number",
+                        "format": "integer"
+                    },
+                    {
+                        "name": "price",
+                        "in": "query",
+                        "description": "Price of the new item.",
+                        "required": true,
+                        "type": "number",
+                        "format": "float"
+                    }
+                ],
+                "tags": [
+                    "create"
+                ],
+                "responses": {
+                    "default": {
+                        "description": "Unexpected error",
+                        "schema": {
+                            "$ref": "#/definitions/Error"
+                        }
+                    }
+                }
+            }
+        },
+        "/products/delete": {
+            "delete": {
+                "summary": "Delete items from database",
+                "description": "The delete endpoint deletes products from database.",
+                "parameters": [
+                    {
+                        "name": "name",
+                        "in": "query",
+                        "description": "Name of the item in database.",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "name": "amount",
+                        "in": "query",
+                        "description": "amount of the items you want to delete.",
+                        "required": true,
+                        "type": "number",
+                        "format": "integer"
+                    }
+                ],
+                "tags": [
+                    "delete"
+                ],
+                "responses": {
+                    "default": {
+                        "description": "Unexpected error",
+                        "schema": {
+                            "$ref": "#/definitions/Error"
+                        }
+                    }
+                }
+            }
+        },
+        "/products/update": {
+            "put": {
+                "summary": "Update database",
+                "description": "The update endpoint updates one item in the database.",
+                "tags": [
+                    "update"
+                ],
+                "parameters": [
+                    {
+                        "name": "name",
+                        "in": "query",
+                        "description": "Name of the item in database.",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "name": "amount",
+                        "in": "query",
+                        "description": "amount of the items you want to delete.",
+                        "required": false,
+                        "type": "number",
+                        "format": "integer"
+                    },
+                    {
+                        "name": "price",
+                        "in": "query",
+                        "description": "amount of the items you want to delete.",
+                        "required": false,
+                        "type": "number",
+                        "format": "float"
+                    }
+                ],
+                "responses": {
+                    "default": {
+                        "description": "Unexpected error",
+                        "schema": {
+                            "$ref": "#/definitions/Error"
+                        }
+                    }
+                }
+            }
+        }
+    },
+    "definitions": {
+        "Product": {
+            "type": "object",
+            "properties": {
+                "flower_id": {
+                    "type": "string",
+                    "description": "ID of product."
+                },
+                "name": {
+                    "type": "string",
+                    "description": "Name of product."
+                },
+                "amount": {
+                    "type": "integer",
+                    "description": "Amount of product. For example 4 plants."
+                },
+                "price": {
+                    "type": "number",
+                    "description": "Price of product. For example, 5.06 money."
+                }
+            }
+        },
+        "Product2": {
+            "properties": {
+                "flower_id": {
+                    "type": "string",
+                    "description": "ID of product."
+                },
+                "name": {
+                    "type": "string",
+                    "description": "Name of product."
+                },
+                "amount": {
+                    "type": "integer",
+                    "description": "Amount of product. For example 4 plants."
+                },
+                "price": {
+                    "type": "number",
+                    "description": "Price of product. For example, 5.06 money."
+                }
+            }
+        },
+        "Error": {
+            "type": "object",
+            "properties": {
+                "code": {
+                    "type": "integer",
+                    "format": "int32"
+                },
+                "message": {
+                    "type": "string"
+                }
+            }
+        }
+    }
+}
