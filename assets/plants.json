@@ -1,0 +1,263 @@
+{
+    "swagger": "2.0",
+    "info": {
+        "version": "1.0.0",
+        "title": "Plant shop"
+    },
+    "basePath": "/products",
+    "schemes": [
+        "http",
+        "https"
+    ],
+    "produces": [
+        "application/json"
+    ],
+    "paths": {
+        "/products": {
+            "get": {
+                "summary": "Returns all products in database",
+                "tags": [
+                    "all"
+                ],
+                "parameters": [
+                    {
+                        "name": "getAll",
+                        "in": "query",
+                        "type": "string",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "An array of products",
+                        "schema": {
+                            "type": "array",
+                            "items": {
+                                "$ref": "#/definitions/Product"
+                            }
+                        }
+                    },
+                    "default": {
+                        "description": "Unexpected error",
+                        "schema": {
+                            "$ref": "#/definitions/Error"
+                        }
+                    }
+                }
+            },
+            "post": {
+                "summary": "Creates new plant to database",
+                "tags": [
+                    "create"
+                ],
+                "parameters": [
+                    {
+                        "name": "addNew",
+                        "in": "query",
+                        "type": "string",
+                        "required": true
+                    },
+                    {
+                        "name": "name",
+                        "in": "query",
+                        "description": "Name of the new item.",
+                        "type": "string",
+                        "required": true
+                    },
+                    {
+                        "name": "amount",
+                        "in": "query",
+                        "description": "Amount of the new items.",
+                        "type": "number",
+                        "required": true,
+                        "format": "integer"
+                    },
+                    {
+                        "name": "price",
+                        "in": "query",
+                        "description": "Price of the new item.",
+                        "type": "number",
+                        "format": "float",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "default": {
+                        "description": "Unexpected error",
+                        "schema": {
+                            "$ref": "#/definitions/Error"
+                        }
+                    }
+                }
+            },
+            "delete": {
+                "summary": "Deletes an item from database",
+                "tags": [
+                    "delete"
+                ],
+                "parameters": [
+                    {
+                        "name": "deleteOne",
+                        "in": "query",
+                        "type": "string",
+                        "required": true
+                    },
+                    {
+                        "name": "name",
+                        "in": "query",
+                        "type": "string",
+                        "description": "Name of the item in database.",
+                        "required": true
+                    },
+                    {
+                        "name": "amount",
+                        "in": "query",
+                        "type": "number",
+                        "format": "integer",
+                        "description": "Amount of the items you want to delete.",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "default": {
+                        "description": "Unexpected error",
+                        "schema": {
+                            "$ref": "#/definitions/Error"
+                        }
+                    }
+                }
+            },
+            "put": {
+                "summary": "Updates an existing item in database",
+                "tags": [
+                    "update"
+                ],
+                "parameters": [
+                    {
+                        "name": "updateDb",
+                        "in": "query",
+                        "type": "string",
+                        "required": true
+                    },
+                    {
+                        "name": "name",
+                        "in": "query",
+                        "description": "Name of the item in database.",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "name": "amount",
+                        "in": "query",
+                        "description": "Amount of the items you want to delete.",
+                        "required": false,
+                        "type": "number",
+                        "format": "integer"
+                    },
+                    {
+                        "name": "price",
+                        "in": "query",
+                        "description": "Price of the items you want to delete.",
+                        "required": false,
+                        "type": "number",
+                        "format": "float"
+                    }
+                ],
+                "responses": {
+                    "default": {
+                        "description": "Unexpected error",
+                        "schema": {
+                            "$ref": "#/definitions/Error"
+                        }
+                    }
+                }
+            }
+        },
+        "/products/name": {
+            "get": {
+                "summary": "Returns single item from database",
+                "tags": [
+                    "one item"
+                ],
+                "parameters": [
+                    {
+                        "name": "getOne",
+                        "in": "query",
+                        "type": "string",
+                        "required": true
+                    },
+                    {
+                        "name": "name",
+                        "in": "query",
+                        "type": "string",
+                        "description": "The plant's name by which you want to view the data.",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "An array of products",
+                        "schema": {
+                            "$ref": "#/definitions/Product2"
+                        }
+                    },
+                    "default": {
+                        "description": "Unexpected error",
+                        "schema": {
+                            "$ref": "#/definitions/Error"
+                        }
+                    }
+                }
+            }
+        }
+    },
+    "definitions": {
+        "Product": {
+            "type": "object",
+            "properties": {
+                "flower_id": {
+                    "type": "integer"
+                },
+                "name": {
+                    "type": "string",
+                    "format": "text"
+                },
+                "amount": {
+                    "type": "integer"
+                },
+                "price": {
+                    "type": "number"
+                }
+            }
+        },
+        "Product2": {
+            "properties": {
+                "flower_id": {
+                    "type": "integer"
+                },
+                "name": {
+                    "type": "string",
+                    "format": "text"
+                },
+                "amount": {
+                    "type": "integer"
+                },
+                "price": {
+                    "type": "number"
+                }
+            }
+        },
+        "Error": {
+            "type": "object",
+            "properties": {
+                "code": {
+                    "type": "integer",
+                    "format": "int32"
+                },
+                "message": {
+                    "type": "string"
+                }
+            }
+        }
+    }
+}
