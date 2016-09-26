@@ -21,7 +21,8 @@
                 ],
                 "parameters": [
                     {
-                        "name": "getAll",
+                        "name": "method",
+                        "description": "getAll",
                         "in": "query",
                         "type": "string",
                         "required": true
@@ -52,7 +53,8 @@
                 ],
                 "parameters": [
                     {
-                        "name": "addNew",
+                        "name": "method",
+                        "description": "addNew",
                         "in": "query",
                         "type": "string",
                         "required": true
@@ -97,7 +99,8 @@
                 ],
                 "parameters": [
                     {
-                        "name": "deleteOne",
+                        "name": "method",
+                        "description": "deleteOne",
                         "in": "query",
                         "type": "string",
                         "required": true
@@ -134,7 +137,8 @@
                 ],
                 "parameters": [
                     {
-                        "name": "updateDb",
+                        "name": "method",
+                        "description": "updateOne",
                         "in": "query",
                         "type": "string",
                         "required": true
@@ -149,7 +153,7 @@
                     {
                         "name": "amount",
                         "in": "query",
-                        "description": "Amount of the items you want to delete.",
+                        "description": "amount of the items you want to delete.",
                         "required": false,
                         "type": "number",
                         "format": "integer"
@@ -157,7 +161,7 @@
                     {
                         "name": "price",
                         "in": "query",
-                        "description": "Price of the items you want to delete.",
+                        "description": "amount of the items you want to delete.",
                         "required": false,
                         "type": "number",
                         "format": "float"
@@ -181,7 +185,8 @@
                 ],
                 "parameters": [
                     {
-                        "name": "getOne",
+                        "name": "method",
+                        "description": "getOne",
                         "in": "query",
                         "type": "string",
                         "required": true
@@ -190,7 +195,7 @@
                         "name": "name",
                         "in": "query",
                         "type": "string",
-                        "description": "The plant's name by which you want to view the data.",
+                        "description": "Name of the new item.",
                         "required": true
                     }
                 ],
