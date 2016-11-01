@@ -1,0 +1,232 @@
+{
+    "swagger": "2.0",
+    "info": {
+        "version": "1.0.0",
+        "title": "Plant shop"
+    },
+    "host": "hennoapi.esy.es",
+    "schemes": [
+        "http",
+        "https"
+    ],
+    "produces": [
+        "application/json"
+    ],
+    "paths": {
+        "/products/": {
+            "get": {
+                "summary": "Returns products from database",
+                "tags": [
+                    "all"
+                ],
+                "parameters": [
+                    {
+                        "name": "method",
+                        "description": "getAll or getOne",
+                        "in": "query",
+                        "type": "string",
+                        "required": true
+                    },
+                    {
+                        "name": "name",
+                        "description": "Use only if you want one item",
+                        "in": "query",
+                        "type": "string",
+                        "required": false
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "An array of products",
+                        "schema": {
+                            "type": "array",
+                            "items": {
+                                "$ref": "#/definitions/Product"
+                            }
+                        }
+                    },
+                    "default": {
+                        "description": "Unexpected error",
+                        "schema": {
+                            "$ref": "#/definitions/Error"
+                        }
+                    }
+                }
+            },
+            "post": {
+                "summary": "Creates new plant to database",
+                "tags": [
+                    "create"
+                ],
+                "consumes": [
+                    "application/x-www-form-urlencoded"
+                ],
+                "parameters": [
+                    {
+                        "in": "body",
+                        "name": "body",
+                        "description": "Add new item to database",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/Post"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "successful operation"
+                    },
+                    "default": {
+                        "description": "Unexpected error",
+                        "schema": {
+                            "$ref": "#/definitions/Error"
+                        }
+                    }
+                }
+            },
+            "delete": {
+                "summary": "Deletes an item from database",
+                "tags": [
+                    "delete"
+                ],
+                "consumes": [
+                    "application/x-www-form-urlencoded"
+                ],
+                "parameters": [
+                    {
+                        "in": "body",
+                        "name": "body",
+                        "description": "Deletes item to database",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/Del"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "successful operation"
+                    },
+                    "default": {
+                        "description": "Unexpected error",
+                        "schema": {
+                            "$ref": "#/definitions/Error"
+                        }
+                    }
+                }
+            },
+            "put": {
+                "summary": "Updates an existing items price in database",
+                "tags": [
+                    "update"
+                ],
+                "consumes": [
+                    "application/x-www-form-urlencoded"
+                ],
+                "parameters": [
+                    {
+                        "in": "body",
+                        "name": "body",
+                        "description": "Updates item price",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/Update"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "successful operation"
+                    },
+                    "default": {
+                        "description": "Unexpected error",
+                        "schema": {
+                            "$ref": "#/definitions/Error"
+                        }
+                    }
+                }
+            }
+        }
+    },
+    "definitions": {
+        "Product": {
+            "type": "object",
+            "properties": {
+                "flower_id": {
+                    "type": "integer"
+                },
+                "name": {
+                    "type": "string",
+                    "format": "text"
+                },
+                "amount": {
+                    "type": "integer"
+                },
+                "price": {
+                    "type": "number"
+                }
+            }
+        },
+        "Post": {
+            "type": "object",
+            "properties": {
+                "method": {
+                    "type": "string",
+                    "description": "addNew"
+                },
+                "name": {
+                    "type": "string",
+                    "format": "text"
+                },
+                "amount": {
+                    "type": "integer"
+                },
+                "price": {
+                    "type": "number"
+                }
+            }
+        },
+        "Del": {
+            "type": "object",
+            "properties": {
+                "method": {
+                    "type": "string",
+                    "description": "deleteOne"
+                },
+                "name": {
+                    "type": "string",
+                    "format": "text"
+                }
+            }
+        },
+        "Update": {
+            "type": "object",
+            "properties": {
+                "method": {
+                    "type": "string",
+                    "description": "updatePrice"
+                },
+                "name": {
+                    "type": "string",
+                    "format": "text"
+                },
+                "price": {
+                    "type": "number",
+                    "format": "float"
+                }
+            }
+        },
+        "Error": {
+            "type": "object",
+            "properties": {
+                "code": {
+                    "type": "integer",
+                    "format": "int32"
+                },
+                "message": {
+                    "type": "string"
+                }
+            }
+        }
+    }
+}
